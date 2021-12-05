@@ -177,7 +177,7 @@ class Colorful(Addon):
                 text = line
                 for r in replaceFunc:
                     text = r(text)
-                print(text, end="")
+                sys.stdout.write(text)
         else:
             debug("read from file", file)
             with open(file, "r") as f:
@@ -190,7 +190,7 @@ class Colorful(Addon):
                     text = line
                     for r in replaceFunc:
                         text = r(text)
-                    print(text, end="")
+                    sys.stdout.write(text)
                 while follow:
                     try:
                         text = f.readline()
@@ -198,7 +198,7 @@ class Colorful(Addon):
                         break
                     for r in replaceFunc:
                         text = r(text)
-                    print(text, end="")
+                    sys.stdout.write(text)
 
     def parse(self, repl, text):
         return text if re.match(repl, text) != None else None

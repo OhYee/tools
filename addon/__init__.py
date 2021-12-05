@@ -9,5 +9,4 @@ for dir, _, files in os.walk(addon_dir):
             if dir != addon_dir:
                 file = dir[len(addon_dir)+1:] + "/" + file
             file = file[:-3].replace("/", ".")
-            print(file)
             exec("from .%s import *" % file)
