@@ -131,6 +131,18 @@ class Colorful(Addon):
 
         regex = flags.list("-r")
         replaceFunc = []
+
+        def generateReplaceFunc(reg, color, style):
+            return lambda x: re.sub(
+                reg,
+                lambda matches: "%s%s%s%s" % (
+                    self.colors.get(color, ""),
+                    self.styles.get(style, ""),
+                    matches.group(0),
+                    "\033[0m",
+                ),
+                x,
+            )
         for r in regex:
             reg = ""
             color = ""
@@ -152,20 +164,19 @@ class Colorful(Addon):
                             lst = lst[: -1]
                     reg = ":".join(lst)
 
-            debug(r, "=>", "(", reg, "|", color, "|", style, ")")
-
-            replaceFunc.append(
-                lambda x: re.sub(
-                    reg,
-                    lambda text: "%s%s%s%s" % (
-                        self.colors.get(color, ""),
-                        self.styles.get(style, ""),
-                        text.group(0),
-                        "\033[0m",
-                    ),
-                    x,
-                )
+            debug(
+                r, "=>",
+                "(",
+                self.colors.get(color, "") +
+                self.styles.get(style, "\033[0m") + reg + "",
+                "|",
+                self.colors.get(color, "") + color+"\033[0m",
+                "|",
+                self.styles.get(style, "") + style + "\033[0m",
+                ")"
             )
+
+            replaceFunc.append(generateReplaceFunc(reg, color, style))
 
         head = flags.int("-n", -1)
         tail = flags.int("-t", -1)
