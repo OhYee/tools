@@ -19,8 +19,8 @@ if __name__ == "__main__":
     lang = I18n(i18n)
 
     flags = Flags("o [command] [options]")
-    flags.addFlag(["-h", "--help"], lang.get("show_help"))
-    flags.addFlag(["-d", "--debug"], lang.get("debug_mode"))
+    flags.addOption(["-h", "--help"], lang.get("show_help"))
+    flags.addOption(["-d", "--debug"], lang.get("debug_mode"))
 
     ctx.debug = flags.bool("-d")
     ctx.help = flags.bool("-h")

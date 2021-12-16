@@ -87,22 +87,22 @@ class Colorful(Addon):
 
     def run(self, params):
         flags = Flags("o builtin [command] [options]", params)
-        flags.addFlag(
+        flags.addOption(
             ["-r", "--regex"],
             self.lang.get("regex_help"),
             True,
         )
-        flags.addFlag(
+        flags.addOption(
             ["-n", "--number"],
             self.lang.get("number_help"),
             True,
         )
-        flags.addFlag(
+        flags.addOption(
             ["-t", "--tail"],
             self.lang.get("tail_help"),
             True,
         )
-        flags.addFlag(
+        flags.addOption(
             ["-f", "--follow"],
             self.lang.get("follow_help"),
         )

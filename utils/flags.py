@@ -19,33 +19,58 @@ class Flags:
         """
         self.argv = sys.argv[1:] if argv == None else argv
 
-        self.flags = []
-        self.flagMap = {}
+        self.options = []
+        self.optionMap = {}
         self.usage = usage
         self.shortOpt = {}
 
         self.ret = {}
         self.parsed = False
 
-    def addFlag(self, flag="", help="", hasValue=False):
+    def addOption(self, option="", help="", hasValue=False):
         """
         添加一个参数选项
         - flag: 用于识别的选项，如 ["-h", "--help"]
         - help: 对应的帮助说明
         - hasValue: 是否要将后一个参数作为当前参数的值
         """
-        if type(flag) != list:
-            flag = [flag]
+        if type(option) != list:
+            option = [option]
 
-        fid = len(self.flags)
+        fid = len(self.options)
         temp = []
-        for f in flag:
+        for f in option:
             if type(f) == str and f != "":
                 temp.append(f)
-                self.flagMap[f] = fid
+                self.optionMap[f] = fid
                 if len(f) == 2 and f[0] == "-":
                     self.shortOpt[f[1]] = fid
-        self.flags.append({
+        self.options.append({
+            "flag": temp,
+            "help": help,
+            "hasValue": hasValue,
+            "id": fid,
+        })
+
+    def addCommand(self, command="", help="", hasValue=False):
+        """
+        添加一个参数选项
+        - flag: 用于识别的选项，如 ["-h", "--help"]
+        - help: 对应的帮助说明
+        - hasValue: 是否要将后一个参数作为当前参数的值
+        """
+        if type(command) != list:
+            command = [command]
+
+        fid = len(self.options)
+        temp = []
+        for f in command:
+            if type(f) == str and f != "":
+                temp.append(f)
+                self.optionMap[f] = fid
+                if len(f) == 2 and f[0] == "-":
+                    self.shortOpt[f[1]] = fid
+        self.options.append({
             "flag": temp,
             "help": help,
             "hasValue": hasValue,
@@ -69,10 +94,10 @@ class Flags:
                 skip = False
                 continue
 
-            if arg in self.flagMap:
+            if arg in self.optionMap:
                 # 如果存在对应选项，则进行解析
-                fid = self.flagMap[arg]
-                flag = self.flags[fid]
+                fid = self.optionMap[arg]
+                flag = self.options[fid]
                 value = True
                 if flag.get("hasValue", False) and idx + 1 < len(argv):
                     # 如果存在值，则将下一个参数跳过
@@ -85,7 +110,7 @@ class Flags:
                 # 如果是形如 -it 的选项，则尝试将其解析为 -i 和 -t
                 args = list(arg[1:])
                 fids = [
-                    self.flagMap.get("-%s" % arg, -1)
+                    self.optionMap.get("-%s" % arg, -1)
                     for arg in args
                 ]
                 if len([fid for fid in fids if fid == -1]) > 0:
@@ -98,7 +123,7 @@ class Flags:
                 restArgv.append(arg)
 
         for key, value in ret.items():
-            flag = self.flags[key]
+            flag = self.options[key]
             for f in flag.get("flag", []):
                 self.ret[f] = value
         self.ret["_"] = restArgv
@@ -115,7 +140,7 @@ class Flags:
                 (" [value]" if flag.get("hasValue", False) else ""),
                 flag["help"],
             )
-            for flag in self.flags
+            for flag in self.options
         ]
 
         result = [
@@ -181,20 +206,20 @@ if __name__ == "__main__":
     flags = Flags(
         "%s -v -v -v -b -vb -f 1.txt -f 2.txt lovelive super star" % sys.argv[0]
     )
-    flags.addFlag(
+    flags.addOption(
         ["-h", "--help"],
         "show help",
     )
-    flags.addFlag(
+    flags.addOption(
         ["-v", "--verbose"],
         "verbose",
     )
-    flags.addFlag(
+    flags.addOption(
         ["-f", "--file"],
         "open files",
         True
     )
-    flags.addFlag(
+    flags.addOption(
         ["-b", "--base64"],
         "base64",
     )
