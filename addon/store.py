@@ -34,32 +34,32 @@ class Store(Addon):
 
     def run(self, params):
         if ctx.help:
-            print(
+            stdoutLine(
                 "o store {write|read} {key} [value]\n    " +
                 self.description()
             )
             exit(0)
 
         if len(params) < 1:
-            print("error: missing command, want write or read")
+            stdoutLine("error: missing command, want write or read")
             exit(1)
         cmd = params[0]
 
         if len(params) < 2:
-            print("error: missing key")
+            stdoutLine("error: missing key")
             exit(1)
         key = params[1]
 
         if cmd in ["write", "w"]:
             if len(params) < 3:
-                print("error: missing value")
+                stdoutLine("error: missing value")
                 exit(1)
             value = params[2]
             kvStore(key, value)
         elif cmd in ["read", "r"]:
-            print(kvLoad(key, ""))
+            stdoutLine(kvLoad(key, ""))
         else:
-            print("Unknown command " + cmd)
+            stdoutLine("Unknown command " + cmd)
 
 
 addons.append(Store)

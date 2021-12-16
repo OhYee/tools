@@ -11,7 +11,7 @@ class Addon:
         return "no help"
 
     def run(self, params):
-        print(params)
+        stdoutLine(params)
 
     def __repr__(self):
         return "Addon[%s]  %s" % (self.name(), self.description())

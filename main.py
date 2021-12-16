@@ -63,9 +63,9 @@ if __name__ == "__main__":
                 except KeyboardInterrupt:
                     pass
                 exit(0)
-        print("Unknown command: %s" % command)
+        stdoutLine("Unknown command: %s" % command)
 
-    print("\n".join([
+    stdoutLine("\n".join([
         flags.help(),
         "",
         "commands:",

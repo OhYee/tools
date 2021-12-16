@@ -89,12 +89,12 @@ class Watch(Addon):
                 if len(slice[idx]) > number:
                     slice[idx] = slice[idx][-number:]
 
-            print("\033[H\033[2J")
+            stdoutLine("\033[H\033[2J")
             for idx in range(l):
-                print(commands[idx])
+                stdoutLine(commands[idx])
                 if not no_history:
-                    print(slice[idx])
-                print(
+                    stdoutLine(slice[idx])
+                stdoutLine(
                     "Min:", float_fmt % min(slice[idx]),
                     "Max:", float_fmt % max(slice[idx]),
                     "Sum:", float_fmt % sum(slice[idx]),
@@ -102,7 +102,7 @@ class Watch(Addon):
                         sum(slice[idx]) / len(slice[idx])
                     )
                 )
-                print()
+                stdoutLine()
 
             time.sleep(sleep_time)
 

@@ -56,7 +56,7 @@ class JSON(Addon):
         if ctx.help:
             flags.showHelp()
 
-        text = input()
+        text = stdin()
         try:
             jsonObj = json.loads(text)
             jsonText = json.dumps(
@@ -80,10 +80,10 @@ class JSON(Addon):
                     jsonText,
                 )
 
-            print(jsonText)
+            stdoutLine(jsonText)
         except Exception as e:
             stderrLine(e)
-            print(text)
+            stdoutLine(text)
 
     def parse(self, repl, text):
         return text if re.match(repl, text) != None else None

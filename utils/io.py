@@ -6,7 +6,7 @@ import sys
 
 def debug(*args):
     if ctx.debug:
-        print(" ".join(map(str, args)))
+        stdoutLine(" ".join(map(str, args)))
 
 
 def stdout(*args):
@@ -29,3 +29,11 @@ def stderrLine(*args):
     stderr(*args)
     stderr("\n")
     sys.stderr.flush()
+
+
+def stdin():
+    return sys.stdin.read()
+
+
+def stdinLine():
+    return sys.stdin.readline()

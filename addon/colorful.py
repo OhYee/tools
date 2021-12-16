@@ -113,7 +113,7 @@ class Colorful(Addon):
 
         if ctx.help:
             # flags.showHelp()
-            print("\n".join(
+            stdoutLine("\n".join(
                 [
                     self.description(),
                     "",
