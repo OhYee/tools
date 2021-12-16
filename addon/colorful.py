@@ -112,10 +112,9 @@ class Colorful(Addon):
         self.init()
 
         if ctx.help:
-            # flags.showHelp()
             stdoutLine("\n".join(
                 [
-                    self.description(),
+                    flags.help(),
                     "",
                     "%s: %s" % (
                         self.lang.get("color_help"),
