@@ -82,7 +82,7 @@ class JSON(Addon):
 
             print(jsonText)
         except Exception as e:
-            stderr(e)
+            stderrLine(e)
             print(text)
 
     def parse(self, repl, text):

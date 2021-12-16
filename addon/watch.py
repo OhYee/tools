@@ -83,7 +83,7 @@ class Watch(Addon):
                     p = os.popen(cmd)
                     value = float(p.read())
                 except Exception as e:
-                    stderr(e)
+                    stderrLine(e)
                     value = 0
                 slice[idx].append(value)
                 if len(slice[idx]) > number:
