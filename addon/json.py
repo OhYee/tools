@@ -35,7 +35,7 @@ class JSON(Addon):
         return self.lang.get("description")
 
     def run(self, params):
-        flags = Flags("o builtin [command] [options]", params)
+        flags = Flags("o json [command] [options]", params)
         flags.addOption(
             ["-c", "--color", "--highlight"],
             self.lang.get("highlight_help"),

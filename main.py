@@ -58,7 +58,10 @@ if __name__ == "__main__":
         for cmd in commands:
             if command in cmd[1]:
                 debug("run %s %s" % (command,  cmd[1]))
-                cmd[0].run(rargs[1:])
+                try:
+                    cmd[0].run(rargs[1:])
+                except KeyboardInterrupt:
+                    pass
                 exit(0)
         print("Unknown command: %s" % command)
 

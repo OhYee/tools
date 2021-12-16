@@ -86,7 +86,7 @@ class Colorful(Addon):
         debug(self.stylesRegexp)
 
     def run(self, params):
-        flags = Flags("o builtin [command] [options]", params)
+        flags = Flags("o colorful [command] [options]", params)
         flags.addOption(
             ["-r", "--regex"],
             self.lang.get("regex_help"),
